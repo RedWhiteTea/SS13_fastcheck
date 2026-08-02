@@ -1,12 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" style="overflow:hidden;height:100%">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>SS13 速查手册 - 医疗</title>
 <link rel="stylesheet" href="../css/styles.css">
+<style>
+@keyframes dumiSlideUp{from{bottom:-58px}to{bottom:-8px}}
+</style>
 </head>
-<body style="position:relative">
+<body style="position:relative;overflow-y:auto;height:100%;overscroll-behavior-y:none;-webkit-overflow-scrolling:touch">
 
 <nav class="top-nav">
   <div class="nav-logo"><span>医疗MED</span></div>
@@ -22,6 +25,33 @@
   <button class="main-btn main-btn-med-green"><span>手术</span></button>
 </div>
 
-<div id="anchorCorner" style="position:absolute;left:0;bottom:0;width:40px;height:40px;background:#ffeb3b;"></div>
+<div id="anchorCorner" style="position:absolute;left:0;bottom:-5px;width:45px;height:45px;background:transparent;cursor:pointer;" onclick="handleClick()"></div>
+
+<script>
+var clickCount = 0;
+function handleClick() {
+  clickCount++;
+  if (clickCount === 2) {
+    if (document.getElementById('dumiImg')) return;
+    var img = document.createElement('img');
+    img.id = 'dumiImg';
+    img.src = '../Icons/Misc/Dumi_f.png';
+    img.style.cssText = 'position:absolute;left:0;bottom:-58px;max-height:64px;cursor:pointer;z-index:999;animation:dumiSlideUp 1.5s ease-out forwards;';
+    img.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var old = document.getElementById('dumiText');
+      if (old) { old.remove(); }
+      var txt = document.createElement('div');
+      txt.id = 'dumiText';
+      txt.style.cssText = 'position:absolute;left:70px;bottom:8px;font-size:12px;font-weight:700;color:var(--ink);background:var(--bg2);border:3px solid var(--ink);padding:4px 10px;border-radius:0;box-shadow:3px 3px 0 rgba(0,0,0,.15);z-index:1000;white-space:nowrap;transition:opacity 2s ease;';
+      txt.textContent = '你摸了摸 dumi 的头';
+      document.body.appendChild(txt);
+      setTimeout(function() { txt.style.opacity = '0'; }, 50);
+      setTimeout(function() { if (txt.parentNode) txt.remove(); }, 2100);
+    });
+    document.body.appendChild(img);
+  }
+}
+</script>
 </body>
 </html>

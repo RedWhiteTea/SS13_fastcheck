@@ -74,9 +74,9 @@ var currentLevel = 1;
 
 function resolveLaw(data, level) {
   for (var i = level; i >= 1; i--) {
-    if (data[i]) return data[i];
+    if (data[i]) return {name: data[i], lv: i};
   }
-  return '-';
+  return null;
 }
 
 function buildButtons() {
@@ -95,16 +95,16 @@ function updateSeverity(val) {
   document.getElementById('severityLabel').textContent = val + 'XX';
   for (var x = 1; x <= 20; x++) {
     var id = 'X' + (x < 10 ? '0' : '') + x;
-    var crimeName = resolveLaw(LAW_DATA[id], currentLevel);
+    var resolved = resolveLaw(LAW_DATA[id], currentLevel);
     var btn = document.getElementById('btn' + id);
     if (btn) {
       var span = btn.querySelector('.law-crime');
-      if (crimeName === '-') {
+      if (!resolved) {
         span.textContent = '-';
         btn.style.color = 'var(--muted)';
       } else {
-        var code = currentLevel + (x < 10 ? '0' : '') + x;
-        span.textContent = code + ' ' + crimeName;
+        var code = resolved.lv + (x < 10 ? '0' : '') + x;
+        span.textContent = code + ' ' + resolved.name;
         btn.style.color = 'var(--ink)';
       }
     }
@@ -112,15 +112,15 @@ function updateSeverity(val) {
 }
 
 function showPenalty(id) {
-  var crimeName = resolveLaw(LAW_DATA[id], currentLevel);
-  if (crimeName === '-') {
+  var resolved = resolveLaw(LAW_DATA[id], currentLevel);
+  if (!resolved) {
     document.getElementById('penaltyCrime').textContent = '无对应罪名';
     document.getElementById('penaltyText').textContent = '';
   } else {
     var x = parseInt(id.substring(1));
-    var code = currentLevel + (x < 10 ? '0' : '') + x;
-    document.getElementById('penaltyCrime').textContent = id + ' ' + NAMES[id] + ' - ' + code + ' ' + crimeName;
-    document.getElementById('penaltyText').textContent = PENALTY[currentLevel];
+    var code = resolved.lv + (x < 10 ? '0' : '') + x;
+    document.getElementById('penaltyCrime').textContent = id + ' ' + NAMES[id] + ' - ' + code + ' ' + resolved.name;
+    document.getElementById('penaltyText').textContent = PENALTY[resolved.lv];
   }
   document.getElementById('penaltySection').style.display = 'block';
 }

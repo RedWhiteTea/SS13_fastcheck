@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>SS13 速查手册 - 违禁品</title>
+<link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+<nav class="top-nav">
+  <div class="nav-logo"><span>违禁品</span></div>
+  <div class="nav-actions">
+    <button class="nav-btn" onclick="location.href='SEC.html'" title="返回"><img src="../Icons/Misc/Return_btn.PNG" alt="返回" class="nav-btn-icon"></button>
+  </div>
+</nav>
+
+<div class="contra-sticky-header">
+  <div class="contra-tag-section">
+    <button class="contra-toggle-btn" id="contraToggle" onclick="toggleContraTags()">▼ 分类筛选</button>
+    <div class="contra-tag-container" id="contraTagContainer"></div>
+  </div>
+  <div class="sort-controls">
+    <div class="sort-dropdown">
+      <button class="sort-btn" onclick="toggleSortDropdown()">排序方式 ▼</button>
+      <div class="sort-dropdown-panel" id="sortDropdown">
+        <span class="sort-option active" onclick="setSort('relevance', this)">按相关性</span>
+        <span class="sort-option" onclick="setSort('name', this)">按名称</span>
+        <span class="sort-option" onclick="setSort('level', this)">按处罚等级</span>
+      </div>
+    </div>
+    <button class="sort-order-btn" id="sortOrderBtn" onclick="toggleSortOrder()">↑ 正序</button>
+  </div>
+</div>
+
+<div class="contra-list" id="contraList"></div>
+
+<script>
+var ALL_TAGS = ['辛迪加','黑市','武器','弹药','爆炸物','植入物','护甲','工具','电子设备','药品','毒品','数据','医疗','近战','远程','潜行','伪装','黑客','干扰','非致命','致命','恶搞','超自然','生物','化学','探测','高危险','古代','服装','视觉','陷阱','束缚','控制','邪教','承包商','上行链路','模块服','机甲','权限','传送','施工'];
+
+var ITEMS = [
+  {n:'超级亮的 Moff 提灯',lv:0,t:['工具']},{n:'人工智能探测酒',lv:0,t:['探测','电子设备']},{n:'弹药袋',lv:0,t:['弹药']},{n:'古代连身衣',lv:0,t:['古代','服装']},{n:'古代工具箱',lv:0,t:['古代','工具']},{n:'笨拙基因注射器',lv:0,t:['生物','植入物']},{n:'胸挂',lv:0,t:['护甲','服装']},{n:'致命的保龄球帽',lv:0,t:['恶搞','致命','服装']},{n:'致命的折纸',lv:0,t:['恶搞','致命']},{n:'快速香蕉奶油派大炮',lv:0,t:['恶搞','远程']},{n:'合法枪支 / 远程武器',lv:0,t:['远程','武器']},{n:'走私者挎包',lv:0,t:['黑市','工具']},{n:'防毒面具',lv:0,t:['护甲']},{n:'闹鬼的魔法八号球',lv:0,t:['超自然','恶搞']},{n:'变色龙套件',lv:0,t:['伪装','辛迪加']},{n:'辛迪加纸飞机',lv:0,t:['辛迪加','恶搞']},{n:'辛迪加手术行李包 / 战术工具箱',lv:0,t:['辛迪加','工具']},{n:'辛迪加扣 / 手持传送器',lv:0,t:['辛迪加','工具','传送']},{n:'辛迪加底牌',lv:0,t:['辛迪加']},{n:'辛迪加气球',lv:0,t:['辛迪加','恶搞']},{n:'娱乐性药物',lv:0,t:['毒品']},{n:'辛迪加现金公文包',lv:0,t:['辛迪加']},{n:'辛迪加香烟',lv:0,t:['辛迪加']},{n:'辛迪加肥皂',lv:0,t:['辛迪加','恶搞']},{n:'紧急氧气瓶',lv:0,t:['工具']},{n:'近战武器',lv:0,t:['近战','武器']},{n:'弹药',lv:1,t:['弹药']},{n:'盔甲背心',lv:1,t:['护甲']},{n:'诱饵核磁盘',lv:1,t:['工具','辛迪加']},{n:'F.R.A.M.E 磁盘',lv:1,t:['数据','黑客','辛迪加']},{n:'辛迪加撞针',lv:1,t:['辛迪加','武器']},{n:'穆里根',lv:1,t:['辛迪加']},{n:'TC 水晶',lv:1,t:['辛迪加']},{n:'肥皂手榴弹',lv:1,t:['恶搞','爆炸物','辛迪加']},{n:'消音器',lv:1,t:['武器','远程']},{n:'黑市上行链路',lv:1,t:['黑市','黑客','上行链路']},{n:'超级搞笑的撞针',lv:1,t:['辛迪加','恶搞','武器']},{n:'脱水太空鲤鱼',lv:1,t:['恶搞']},{n:'液压钳 / 殖民地撬棍 / F.O.C.K 超载套件',lv:1,t:['工具']},{n:'闪光弹',lv:1,t:['非致命','武器']},{n:'Syndeye 应用程序',lv:1,t:['黑客','数据','辛迪加']},{n:'手铐 / 高级约束',lv:1,t:['工具','束缚']},{n:'未经许可的战斗突变',lv:1,t:['生物','植入物']},{n:'处方药',lv:1,t:['药品']},{n:'叛徒错误 / 可疑设备',lv:1,t:['辛迪加','电子设备']},{n:'辛迪加海报',lv:1,t:['辛迪加']},{n:'辛迪加喷雾罐',lv:1,t:['辛迪加','恶搞']},{n:'非法弹药',lv:2,t:['弹药','高危险']},{n:'二进制加密密钥',lv:2,t:['黑客','数据']},{n:'屠夫肉勾',lv:2,t:['近战','武器']},{n:'密语手册',lv:2,t:['数据','超自然']},{n:'战斗除颤器',lv:2,t:['医疗','武器']},{n:'隐蔽武器架',lv:2,t:['工具','伪装']},{n:'EMP 设备',lv:2,t:['电子设备','黑客','干扰']},{n:'变色龙投影仪',lv:2,t:['伪装','辛迪加']},{n:'非致命毒药',lv:2,t:['非致命','化学']},{n:'有机资源扰乱者',lv:2,t:['电子设备','黑客']},{n:'无线电干扰器',lv:2,t:['干扰','电子设备']},{n:'辛迪加加密密钥',lv:2,t:['辛迪加','数据','黑客']},{n:'投掷飞镖 / 抛绳',lv:2,t:['远程','工具']},{n:'反向捕熊陷阱',lv:2,t:['陷阱']},{n:'未经授权的战斗植入物',lv:2,t:['植入物','武器']},{n:'大猩猩方块',lv:2,t:['生物','恶搞']},{n:'烈性毒品',lv:2,t:['毒品']},{n:'热成像目镜 / 模块',lv:2,t:['视觉','电子设备']},{n:'放射性激光器',lv:2,t:['远程','武器']},{n:'困倦笔',lv:2,t:['非致命','工具']},{n:'特工卡',lv:2,t:['黑市','权限','辛迪加']},{n:'快速施工设备',lv:2,t:['施工','工具']},{n:'碎裂弹',lv:2,t:['弹药','爆炸物']},{n:'防闪光镜片',lv:2,t:['护甲','视觉']},{n:'LTSRBT',lv:2,t:['传送','黑市','电子设备']},{n:'限制性武器',lv:3,t:['武器','高危险']},{n:'所有非法植入物',lv:3,t:['植入物']},{n:'Emag 卡',lv:3,t:['黑客','电子设备','权限']},{n:'骨头手榴弹',lv:3,t:['爆炸物','超自然','致命']},{n:'未授权的武装机甲',lv:3,t:['机甲','武器']},{n:'能量剑 / 能量匕首',lv:3,t:['近战','武器','致命']},{n:'契约电棍',lv:3,t:['近战','武器']},{n:'渗透者模块服',lv:3,t:['模块服','潜行','辛迪加']},{n:'武士刀',lv:3,t:['近战','武器','致命']},{n:'致命毒药',lv:3,t:['致命','化学']},{n:'DNA 注射枪',lv:3,t:['生物','武器']},{n:'强力拳',lv:3,t:['近战','植入物']},{n:'注射器 / 飞镖武器',lv:3,t:['远程','化学','武器']},{n:'辛迪加 / 承包商 模块服',lv:3,t:['辛迪加','模块服','承包商']},{n:'能量盾',lv:3,t:['护甲']},{n:'基本爆炸物',lv:3,t:['爆炸物','致命']},{n:'原动能加压模组',lv:3,t:['工具','武器']},{n:'哨兵炮台套件',lv:3,t:['电子设备','武器']},{n:'烈性毒品库存',lv:3,t:['毒品']},{n:'烫手山芋',lv:3,t:['恶搞','爆炸物']},{n:'超自然神器',lv:3,t:['超自然']},{n:'北极星手套',lv:3,t:['工具','黑客']},{n:'NIF 切除器',lv:3,t:['植入物','工具']},{n:'超级尖锐胶带',lv:3,t:['恶搞','工具']},{n:'非法枪支',lv:4,t:['武器','远程','致命','高危险']},{n:'小丑炸弹',lv:4,t:['恶搞','爆炸物','致命']},{n:'邪构构造套件',lv:4,t:['邪教','超自然']},{n:'精英辛迪加模块服',lv:4,t:['辛迪加','模块服']},{n:'未经授权的战斗机甲',lv:4,t:['机甲','武器']},{n:'超级无敌搞笑的撞针',lv:4,t:['辛迪加','恶搞','致命','武器']},{n:'辛迪加微型炸弹',lv:4,t:['辛迪加','爆炸物','致命']},{n:'内脏切割手榴弹',lv:4,t:['致命','爆炸物','生物']},{n:'双刃能量剑',lv:4,t:['近战','致命','武器']},{n:'奇点 / 特斯拉信标',lv:4,t:['高危险','电子设备']},{n:'披萨炸弹',lv:4,t:['恶搞','爆炸物']},{n:'毒性蜜蜂手榴弹',lv:4,t:['生物','爆炸物']},{n:'黑入的 AI 上传模块',lv:4,t:['黑客','数据']},{n:'洗脑手术磁盘',lv:4,t:['数据','植入物','控制']},{n:'忍者模块服',lv:4,t:['模块服','潜行']},{n:'能量武士刀',lv:4,t:['近战','致命','武器']},{n:'辛迪加上行链路',lv:4,t:['辛迪加','黑客','上行链路']},{n:'远程电车控制器',lv:4,t:['控制','电子设备']},{n:'假公告设备',lv:4,t:['干扰','电子设备']},{n:'辛迪加加赛博升级',lv:4,t:['辛迪加','植入物','电子设备']},{n:'违法 NIF',lv:4,t:['植入物','视觉','数据']},{n:'武术',lv:5,t:['近战','致命']},{n:'任何咒语',lv:5,t:['超自然','邪教']},{n:'全息寄生虫',lv:5,t:['生物','超自然']},{n:'全息鲤鱼',lv:5,t:['恶搞','超自然']},{n:'植入的辛迪加上行链路',lv:5,t:['辛迪加','植入物','黑客']},{n:'罗梅罗尔',lv:5,t:['超自然','致命']},{n:'核认证磁盘',lv:5,t:['高危险','数据']},{n:'辛迪加电源接收器',lv:5,t:['辛迪加','电子设备']},{n:'钚核',lv:5,t:['高危险','爆炸物']},{n:'有害的病毒样本',lv:5,t:['生物','高危险']},{n:'TTV(气瓶转移阀炸弹)',lv:5,t:['爆炸物','高危险','致命']},{n:'炸药',lv:5,t:['爆炸物','高危险','致命']},{n:'辛迪加 EMP 炸弹',lv:5,t:['辛迪加','爆炸物','电子设备']},{n:'辛迪加炸弹',lv:5,t:['辛迪加','爆炸物','高危险']},{n:'超物质样本',lv:5,t:['高危险','超自然']},{n:'危险的超自然文物',lv:5,t:['超自然','高危险','致命']}
+];
+
+var selectedTags = {};
+var sortMode = 'relevance';
+var sortAsc = true;
+
+function getLvColor(lv) {
+  var colors = ['#ffffff','#4caf50','#ffeb3b','#ff9800','#f44336','#b71c1c'];
+  return colors[lv] || '#ffffff';
+}
+
+function buildTags() {
+  var html = '';
+  ALL_TAGS.forEach(function(t) {
+    html += '<span class="contra-tag" onclick="toggleTag(\'' + t + '\', this)">' + t + '</span>';
+  });
+  document.getElementById('contraTagContainer').innerHTML = html;
+}
+
+function toggleTag(tag, el) {
+  if (selectedTags[tag]) { delete selectedTags[tag]; el.classList.remove('active'); }
+  else { selectedTags[tag] = true; el.classList.add('active'); }
+  renderList();
+}
+
+function renderList() {
+  var activeTagList = Object.keys(selectedTags);
+  var filtered = ITEMS.filter(function(item) {
+    if (activeTagList.length === 0) return true;
+    return activeTagList.some(function(t) { return item.t.indexOf(t) !== -1; });
+  });
+  if (sortMode === 'relevance') {
+    filtered.sort(function(a,b) {
+      var ca = a.t.filter(function(t){return activeTagList.indexOf(t)!==-1}).length;
+      var cb = b.t.filter(function(t){return activeTagList.indexOf(t)!==-1}).length;
+      return cb - ca;
+    });
+  } else if (sortMode === 'name') {
+    filtered.sort(function(a,b) { return a.n.localeCompare(b.n); });
+  } else {
+    filtered.sort(function(a,b) { return a.lv - b.lv; });
+  }
+  if (!sortAsc && sortMode !== 'relevance') filtered.reverse();
+
+  var html = '';
+  filtered.forEach(function(item) {
+    var tagsHtml = item.t.map(function(t) {
+      var isActive = activeTagList.indexOf(t) !== -1 ? ' active' : '';
+      return '<span class="contra-item-tag' + isActive + '">' + t + '</span>';
+    }).join('');
+    var lvColor = getLvColor(item.lv);
+    var isDark = item.lv >= 4;
+    html += '<div class="contra-item' + (isDark ? ' dark' : '') + '" style="background:' + lvColor + '">';
+    html += '<div class="contra-item-name">' + item.n + '</div>';
+    html += '<div class="contra-item-lv" style="border-color:' + (isDark ? '#fff' : 'var(--ink)') + '">Lv.' + item.lv + '</div>';
+    html += '<div class="contra-item-tags">' + tagsHtml + '</div>';
+    html += '</div>';
+  });
+  document.getElementById('contraList').innerHTML = html;
+}
+
+function toggleSortDropdown() { document.getElementById('sortDropdown').classList.toggle('open'); }
+function setSort(type, el) {
+  document.querySelectorAll('.sort-option').forEach(function(o) { o.classList.remove('active'); });
+  el.classList.add('active');
+  sortMode = type;
+  renderList();
+}
+function toggleSortOrder() {
+  sortAsc = !sortAsc;
+  document.getElementById('sortOrderBtn').innerHTML = sortAsc ? '↑ 正序' : '↓ 反序';
+  renderList();
+}
+function toggleContraTags() {
+  var c = document.getElementById('contraTagContainer');
+  var b = document.getElementById('contraToggle');
+  c.classList.toggle('collapsed');
+  b.innerHTML = c.classList.contains('collapsed') ? '► 分类筛选' : '▼ 分类筛选';
+}
+
+buildTags();
+renderList();
+</script>
+
+</body>
+</html>

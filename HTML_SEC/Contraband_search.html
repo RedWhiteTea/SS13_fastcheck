@@ -20,6 +20,9 @@
     <button class="contra-toggle-btn" id="contraToggle" onclick="toggleContraTags()">▼ 分类筛选</button>
     <div class="contra-tag-container" id="contraTagContainer"></div>
   </div>
+  <div class="contra-search-section">
+    <input type="text" class="contra-search-bar" id="contraSearch" placeholder="搜索违禁品名称..." oninput="renderList()">
+  </div>
   <div class="sort-controls">
     <div class="sort-dropdown">
       <button class="sort-btn" onclick="toggleSortDropdown()">排序方式 ▼</button>
@@ -67,7 +70,9 @@ function toggleTag(tag, el) {
 
 function renderList() {
   var activeTagList = Object.keys(selectedTags);
+  var searchText = document.getElementById('contraSearch').value.trim().toLowerCase();
   var filtered = ITEMS.filter(function(item) {
+    if (searchText && item.n.toLowerCase().indexOf(searchText) === -1) return false;
     if (activeTagList.length === 0) return true;
     return activeTagList.some(function(t) { return item.t.indexOf(t) !== -1; });
   });

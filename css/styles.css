@@ -694,6 +694,25 @@ a:hover{text-decoration:underline}
   box-shadow:2px 2px 0 rgba(229,57,53,.3);
 }
 
+/* ===== Contra Search Bar ===== */
+.contra-search-section{
+  padding:0 12px 10px;
+}
+.contra-search-bar{
+  width:100%;padding:10px 14px;border-radius:0;
+  border:3px solid var(--ink);background:var(--bg2);
+  font-size:13px;font-weight:700;color:var(--ink);
+  outline:none;font-family:inherit;
+  box-shadow:3px 3px 0 rgba(0,0,0,.15);
+}
+.contra-search-bar::placeholder{
+  color:var(--muted);font-weight:400;
+}
+.contra-search-bar:focus{
+  border-color:var(--accent);
+  box-shadow:3px 3px 0 rgba(46,125,50,.2);
+}
+
 /* ===== Sort Controls ===== */
 .sort-controls{
   display:flex;align-items:center;gap:8px;

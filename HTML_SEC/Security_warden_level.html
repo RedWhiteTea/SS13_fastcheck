@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>SS13 速查手册 - 典狱长</title>
+<link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+<nav class="top-nav">
+  <div class="nav-logo"><span>典狱长</span></div>
+  <div class="nav-actions">
+    <button class="nav-btn" onclick="history.back()" title="返回"><img src="../Icons/Misc/Return_btn.PNG" alt="返回" class="nav-btn-icon"></button>
+  </div>
+</nav>
+
+<div class="main-buttons">
+  <div class="dropdown-group">
+    <button class="main-btn main-btn-sec-lvl dropdown-btn" onclick="toggleDropdown('dropdownPanel')"><span>代码绿色</span></button>
+    <div class="dropdown-panel" id="dropdownPanel">
+      <p><b>着装：</b>遵守安全人员着装准则，可穿任一指定安保着装。</p>
+      <p><b>逮捕：</b>惩教官员在场时不得实施逮捕。</p>
+      <p><b>搜查：</b>必须对每个囚犯物品彻底搜查（口袋、PDA插槽、外套口袋、服装储物格）。</p>
+      <p><b>律师：</b>无义务提供审判，但鼓励死刑案中允许法律援助。</p>
+      <p><b>宣读罪行：</b>必须向每个囚犯宣读所犯罪行。</p>
+      <p><b>携带装备：</b>非致命武器、闪光弹、电棍、辣椒喷雾。</p>
+      <p><b>军械库发放：</b>不得发放武器或护甲（可发额外镇暴光枪）；紧急舱外活动可发模块服；立即威胁（核特工、暴徒）例外。</p>
+      <p><b>闪光灯放置：</b>不得在安保部内放置便携式闪光灯。</p>
+      <p><b>障碍物放置：</b>不得在安保部内放置可部署障碍物。</p>
+      <p><b>铐床：</b>不得铐囚犯在床上，除非明显敌意或试图逃跑。</p>
+    </div>
+  </div>
+
+  <div class="dropdown-group">
+    <button class="main-btn main-btn-sec-blue dropdown-btn" onclick="toggleDropdown('panelBlue')"><span>代码蓝色</span></button>
+    <div class="dropdown-panel" id="panelBlue">
+      <p><b>着装：</b>遵守安全人员着装准则，可穿任一指定安保着装。</p>
+      <p><b>逮捕：</b>惩教官员在场时不得实施逮捕。</p>
+      <p><b>搜查：</b>必须对每个囚犯物品彻底搜查（口袋、PDA插槽、外套口袋、服装储物格）。</p>
+      <p><b>律师：</b>无义务提供审判，但鼓励死刑案中允许法律援助。</p>
+      <p><b>宣读罪行：</b>必须向每个囚犯宣读所犯罪行。</p>
+      <p><b>携带装备：</b>非致命武器、闪光弹、电棍、辣椒喷雾。</p>
+      <p><b>军械库发放：</b>有权发放所有装备，但能量枪和激光枪需安保主管或舰长批准，或存在直接威胁（异形、核特工）时可例外。</p>
+      <p><b>闪光灯放置：</b>有权在安保部内放置便携式闪光灯。</p>
+      <p><b>障碍物放置：</b>有权在安保部内放置可部署路障。</p>
+      <p><b>铐床：</b>不得铐囚犯在床上，除非明显敌意或试图逃跑。</p>
+    </div>
+  </div>
+
+  <div class="dropdown-group">
+    <button class="main-btn main-btn-sec-yellow dropdown-btn" onclick="toggleDropdown('panelYellow')"><span>代码黄色</span></button>
+    <div class="dropdown-panel" id="panelYellow">
+      <p><b>着装：</b>遵守安全人员着装准则，可穿任一指定安保着装。</p>
+      <p><b>逮捕：</b>惩教官员在场时不得实施逮捕。</p>
+      <p><b>搜查：</b>必须对每个囚犯物品彻底搜查，且无需搜查令（逮捕令和搜查令要求被豁免）。</p>
+      <p><b>律师：</b>无义务提供审判，但鼓励死刑案中允许法律援助。</p>
+      <p><b>宣读罪行：</b>必须向每个囚犯宣读所犯罪行。</p>
+      <p><b>携带装备：</b>非致命武器、闪光弹、电棍、辣椒喷雾。</p>
+      <p><b>军械库发放：</b>有权发放所有装备，能量枪/激光枪需批准或直接威胁；经安保主管允许，可向安保人员提供额外致命武器（能量卡宾枪、战斗步枪、战斗霰弹枪、激光步枪或卡宾枪等）。</p>
+      <p><b>闪光灯放置：</b>有权在安保部内放置便携式闪光灯。</p>
+      <p><b>障碍物放置：</b>有权在安保部内放置可部署路障。</p>
+      <p><b>铐床：</b>不得铐囚犯在床上，除非明显敌意或试图逃跑。</p>
+      <p><b>机甲：</b>可部署使用战斗机甲（萨凡纳、伊万诺夫、法宗除外）。</p>
+    </div>
+  </div>
+
+  <div class="dropdown-group">
+    <button class="main-btn main-btn-sec-red dropdown-btn" onclick="toggleDropdown('panelRed')"><span>代码红色</span></button>
+    <div class="dropdown-panel" id="panelRed">
+      <p><b>着装：</b>遵守安全人员着装准则，可穿任一指定安保着装。</p>
+      <p><b>逮捕：</b>有权自由实施逮捕（无惩教官员在场限制）。</p>
+      <p><b>搜查：</b>必须对每个囚犯物品彻底搜查。</p>
+      <p><b>律师：</b>无义务提供审判，但鼓励死刑案中允许法律援助。</p>
+      <p><b>宣读罪行：</b>必须向每个囚犯宣读所犯罪行。</p>
+      <p><b>携带装备：</b>非致命武器、闪光弹、电棍、辣椒喷雾。</p>
+      <p><b>军械库发放：</b>有权分发军械库中任何武器或装备，包括研究部门提供的任何物品（无需额外批准）。</p>
+      <p><b>闪光灯放置：</b>有权在安保部内放置便携式闪光灯。</p>
+      <p><b>障碍物放置：</b>有权在安保部内放置可部署路障。</p>
+      <p><b>铐床：</b>不得铐囚犯在床上，除非明显敌意或试图逃跑。</p>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleDropdown(id) {
+  var panel = document.getElementById(id);
+  panel.classList.toggle('open');
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>SS13 速查手册 - 安保</title>
+<link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+<nav class="top-nav">
+  <div class="nav-logo"><span>安保SEC</span></div>
+  <div class="nav-actions">
+    <button class="nav-btn" onclick="history.back()" title="返回"><img src="../Icons/Misc/Return_btn.PNG" alt="返回" class="nav-btn-icon"></button>
+  </div>
+</nav>
+
+<div class="main-buttons">
+  <div class="dropdown-group">
+    <button class="main-btn main-btn-sec-lvl dropdown-btn" onclick="toggleDropdown('panelSecLevel')"><span>安保等级</span></button>
+    <div class="dropdown-panel" id="panelSecLevel">
+      <div class="grid-buttons">
+        <button class="grid-btn grid-btn-red" onclick="location.href='Security_HOS_level.html'">安全主管</button>
+        <button class="grid-btn grid-btn-lightred" onclick="location.href='Security_officer_level.html'">安保人员</button>
+        <button class="grid-btn grid-btn-brown" onclick="location.href='Security_detective_level.html'">侦探</button>
+        <button class="grid-btn grid-btn-darkred" onclick="location.href='Security_warden_level.html'">典狱长</button>
+        <button class="grid-btn grid-btn-black" onclick="location.href='Security_corrections_level.html'">惩教官</button>
+        <button class="grid-btn grid-btn-blue">资深安保顾问</button>
+      </div>
+    </div>
+  </div>
+  <button class="main-btn main-btn-sec-law" onclick="location.href='Space_law.html'"><span>太空法</span></button>
+  <button class="main-btn main-btn-sec"><span>违禁品</span></button>
+</div>
+
+<script>
+function toggleDropdown(id) {
+  var panel = document.getElementById(id);
+  panel.classList.toggle('open');
+  if (panel.classList.contains('open')) {
+    sessionStorage.setItem('secDropdown', 'open');
+  } else {
+    sessionStorage.removeItem('secDropdown');
+  }
+}
+(function() {
+  if (sessionStorage.getItem('secDropdown') === 'open') {
+    var panel = document.getElementById('panelSecLevel');
+    if (panel) panel.classList.add('open');
+  }
+})();
+</script>
+
+</body>
+</html>

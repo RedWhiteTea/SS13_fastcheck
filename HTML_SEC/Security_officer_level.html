@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>SS13 速查手册 - 安保人员</title>
+<link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+<nav class="top-nav">
+  <div class="nav-logo"><span>安保人员</span></div>
+  <div class="nav-actions">
+    <button class="nav-btn" onclick="history.back()" title="返回"><img src="../Icons/Misc/Return_btn.PNG" alt="返回" class="nav-btn-icon"></button>
+  </div>
+</nav>
+
+<div class="main-buttons">
+  <div class="dropdown-group">
+    <button class="main-btn main-btn-sec-lvl dropdown-btn" onclick="toggleDropdown('dropdownPanel')"><span>代码绿色</span></button>
+    <div class="dropdown-panel" id="dropdownPanel">
+      <p><b>装备：</b>至少一件安保装备；能量手枪及闪光弹、电击棒、胡椒喷雾。</p>
+      <p><b>搜查：</b>合理证据/怀疑；进一步搜查需主管/舰长/典狱长令。</p>
+      <p><b>逮捕：</b>说明理由（拒捕除外）；带至拘留所，不戴铐、不失能；不配合照常处理。</p>
+      <p><b>武力：</b>巡逻不拔枪；仅当逃跑或敌对时。</p>
+      <p><b>模块服：</b>无紧迫危害不穿。</p>
+      <p><b>进入权限：</b>不入其他部门，可向人事主管申请。</p>
+    </div>
+  </div>
+
+  <div class="dropdown-group">
+    <button class="main-btn main-btn-sec-blue dropdown-btn" onclick="toggleDropdown('panelBlue')"><span>代码蓝色</span></button>
+    <div class="dropdown-panel" id="panelBlue">
+      <p><b>装备：</b>至少一件安保装备；能量手枪及非致命武器；经典狱长批准可带任意武器（一次一件，严重紧急例外）。</p>
+      <p><b>搜查：</b>可随机搜查，除非明显敌意不得用武；拒绝者电击并铐搜。</p>
+      <p><b>逮捕：</b>说明理由（拒捕除外）；带至拘留所，不戴铐、不失能；囚犯敌对可铐后离开；不配合照常。</p>
+      <p><b>武力：</b>巡逻可持武器（不建议），逮捕可出示；非敌意不用武，拒绝搜查可电击。</p>
+      <p><b>模块服：</b>经典狱长授权可穿安保模块服，保留至少一件。</p>
+      <p><b>进入权限：</b>可要求进入特定部门。</p>
+    </div>
+  </div>
+
+  <div class="dropdown-group">
+    <button class="main-btn main-btn-sec-yellow dropdown-btn" onclick="toggleDropdown('panelYellow')"><span>代码黄色</span></button>
+    <div class="dropdown-panel" id="panelYellow">
+      <p><b>装备：</b>至少一件安保装备；能量手枪及非致命武器；经典狱长批准可带任意武器（一次一件，严重紧急例外）。</p>
+      <p><b>搜查：</b>可随机搜查，无需通知任何人；除非明显敌意不得用武；拒绝者电击并铐搜。</p>
+      <p><b>逮捕：</b>说明理由（拒捕除外）；带至拘留所，不戴铐、不失能；囚犯敌对可铐后离开；不配合照常。</p>
+      <p><b>武力：</b>巡逻可持武器（不建议），逮捕可出示；非敌意不用武，拒绝搜查可电击。</p>
+      <p><b>模块服：</b>可随时穿安保模块服，保留至少一件。</p>
+      <p><b>进入权限：</b>可要求进入特定部门。</p>
+      <p><b>其他：</b>停止私人活动，立即返岗。</p>
+    </div>
+  </div>
+
+  <div class="dropdown-group">
+    <button class="main-btn main-btn-sec-red dropdown-btn" onclick="toggleDropdown('panelRed')"><span>代码红色</span></button>
+    <div class="dropdown-panel" id="panelRed">
+      <p><b>装备：</b>至少一件安保装备；能量手枪及非致命武器；经典狱长批准可带任意武器（一次一件，严重紧急例外）。</p>
+      <p><b>搜查：</b>可随机搜查，除非明显敌意不得用武；拒绝者电击并铐搜。</p>
+      <p><b>逮捕：</b>说明理由（拒捕除外）；带至拘留所，不戴铐、不失能；囚犯敌对可铐后离开；不配合照常；另有：有证据可不说明理由直接逮捕，必要时强制羁押于安保部。</p>
+      <p><b>武力：</b>巡逻可持武器（不建议），逮捕可出示；非敌意不用武，拒绝搜查可电击。</p>
+      <p><b>模块服：</b>经典狱长授权可穿安保模块服（保留一件），且可随时穿步兵模块服。</p>
+      <p><b>进入权限：</b>可要求进入特定部门。</p>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleDropdown(id) {
+  var panel = document.getElementById(id);
+  panel.classList.toggle('open');
+}
+</script>
+
+</body>
+</html>

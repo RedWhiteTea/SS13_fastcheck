@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>SS13 速查手册 - 安全主管</title>
+<link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+<nav class="top-nav">
+  <div class="nav-logo"><span>安全主管</span></div>
+  <div class="nav-actions">
+    <button class="nav-btn" onclick="history.back()" title="返回"><img src="../Icons/Misc/Return_btn.PNG" alt="返回" class="nav-btn-icon"></button>
+  </div>
+</nav>
+
+<div class="main-buttons">
+  <div class="dropdown-group">
+    <button class="main-btn main-btn-sec-lvl dropdown-btn" onclick="toggleDropdown('dropdownPanel')"><span>代码绿色</span></button>
+    <div class="dropdown-panel" id="dropdownPanel">
+      <p><b>着装：</b>遵循安全官指南，可任选指定安保着装。</p>
+      <p><b>装备：</b>网枪、闪光弹、伸缩警棍、标准能量枪、防暴盾、辣椒喷雾；独特能量枪不建议使用，保持镇暴状态。</p>
+      <p><b>军械库：</b>武器库设备（便携闪光、可部署障碍物）遵循典狱长方针；不得从军械库领取设备随身携带。</p>
+      <p><b>逮捕：</b>与安全人员相同权限。</p>
+      <p><b>模块服：</b>仅遇活跃环境危险或生命威胁时可穿着保卫模块服。</p>
+      <p><b>律师与判决：</b>死刑案件可应嫌疑人要求提供律师；不得推翻纳米顾问判决（除非明显违反SOP/太空法，需联系中央指挥）；不得推翻既定判决，除非新证据或囚犯试图逃跑。</p>
+    </div>
+  </div>
+
+  <div class="dropdown-group">
+    <button class="main-btn main-btn-sec-blue dropdown-btn" onclick="toggleDropdown('panelBlue')"><span>代码蓝色</span></button>
+    <div class="dropdown-panel" id="panelBlue">
+      <p><b>着装：</b>遵循安全官指南，可任选指定安保着装。</p>
+      <p><b>装备：</b>网枪、闪光弹、伸缩警棍、标准能量枪、防暴盾、辣椒喷雾；独特能量枪不建议使用，保持镇暴状态。</p>
+      <p><b>军械库：</b>遵循典狱长方针，不得从军械库领取设备随身携带；可根据需求订购更多武装以更新军械库。</p>
+      <p><b>逮捕：</b>与安全人员相同权限。</p>
+      <p><b>模块服：</b>仅遇活跃环境危险或生命威胁时可穿着保卫模块服。</p>
+      <p><b>律师与判决：</b>死刑案件可应嫌疑人要求提供律师；不得推翻纳米顾问判决（除非明显违反SOP/太空法，需联系中央指挥）；不得推翻既定判决，除非新证据或囚犯试图逃跑。</p>
+      <p><b>其他：</b>提醒主管接种心灵护盾。</p>
+    </div>
+  </div>
+
+  <div class="dropdown-group">
+    <button class="main-btn main-btn-sec-yellow dropdown-btn" onclick="toggleDropdown('panelYellow')"><span>代码黄色</span></button>
+    <div class="dropdown-panel" id="panelYellow">
+      <p><b>着装：</b>遵循安全官指南，可任选指定安保着装。</p>
+      <p><b>装备：</b>网枪、闪光弹、伸缩警棍、标准能量枪、防暴盾、辣椒喷雾；独特能量枪不建议使用，保持镇暴状态。</p>
+      <p><b>军械库：</b>遵循典狱长方针，不得从军械库领取设备随身携带；可购买高威力武装和护具以更新军械库（亦可订购）。</p>
+      <p><b>逮捕：</b>与安全人员相同权限。</p>
+      <p><b>模块服：</b>仅遇活跃环境危险或生命威胁时可穿着保卫模块服。</p>
+      <p><b>律师与判决：</b>死刑案件可应嫌疑人要求提供律师；不得推翻纳米顾问判决（除非明显违反SOP/太空法，需联系中央指挥）；不得推翻既定判决，除非新证据或囚犯试图逃跑。</p>
+      <p><b>机甲：</b>可批准建造/使用武装机甲（吉加斯、雷普利）。</p>
+      <p><b>其他：</b>建议主管立刻接种心灵护盾。</p>
+    </div>
+  </div>
+
+  <div class="dropdown-group">
+    <button class="main-btn main-btn-sec-red dropdown-btn" onclick="toggleDropdown('panelRed')"><span>代码红色</span></button>
+    <div class="dropdown-panel" id="panelRed">
+      <p><b>着装：</b>遵循安全官指南，可任选指定安保着装。</p>
+      <p><b>装备：</b>网枪、闪光弹、伸缩警棍、标准能量枪、防暴盾、辣椒喷雾；独特能量枪不建议使用，保持镇暴状态。</p>
+      <p><b>军械库：</b>遵循典狱长方针，不得从军械库领取设备随身携带；可订购或购买高威力武装更新军械库。</p>
+      <p><b>逮捕：</b>与安全人员相同权限。</p>
+      <p><b>模块服：</b>允许随时穿着保卫模块服（无环境或生命威胁限制）。</p>
+      <p><b>律师与判决：</b>死刑案件可应嫌疑人要求提供律师；不得推翻纳米顾问判决（除非明显违反SOP/太空法，需联系中央指挥）；不得推翻既定判决，除非新证据或囚犯试图逃跑。</p>
+      <p><b>机甲：</b>可批准建造所有型号武装机甲（不限于吉加斯、雷普利）。</p>
+      <p><b>公告：</b>需就已确认威胁性质发布空间站公告，舰长可代替执行。</p>
+      <p><b>其他：</b>强烈要求主管接种心灵护盾。</p>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleDropdown(id) {
+  var panel = document.getElementById(id);
+  panel.classList.toggle('open');
+}
+</script>
+
+</body>
+</html>

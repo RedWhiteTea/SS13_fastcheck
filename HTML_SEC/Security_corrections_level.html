@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>SS13 速查手册 - 惩教官</title>
+<link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+<nav class="top-nav">
+  <div class="nav-logo"><span>惩教官</span></div>
+  <div class="nav-actions">
+    <button class="nav-btn" onclick="history.back()" title="返回"><img src="../Icons/Misc/Return_btn.PNG" alt="返回" class="nav-btn-icon"></button>
+  </div>
+</nav>
+
+<div class="main-buttons">
+  <div class="dropdown-group">
+    <button class="main-btn main-btn-sec-lvl dropdown-btn" onclick="toggleDropdown('dropdownPanel')"><span>代码绿色</span></button>
+    <div class="dropdown-panel" id="dropdownPanel">
+      <p><b>职责范围：</b>不得参与巡逻，工作集中于监狱。</p>
+      <p><b>防暴服：</b>可向典狱长申请，但仅限监狱内部使用。</p>
+      <p><b>囚犯需求：</b>可酌情满足额外需求，非必须。</p>
+      <p><b>搜查频率：</b>每隔二十分钟搜查一次监狱。</p>
+      <p><b>报告义务：</b>向典狱长报告囚犯可疑行为。</p>
+      <p><b>囚犯事务：</b>负责搜身、档案更改及文书工作，接受典狱长领导。</p>
+    </div>
+  </div>
+
+  <div class="dropdown-group">
+    <button class="main-btn main-btn-sec-blue dropdown-btn" onclick="toggleDropdown('panelBlue')"><span>代码蓝色</span></button>
+    <div class="dropdown-panel" id="panelBlue">
+      <p><b>巡逻许可：</b>人员紧缺时，经安保部长许可，可加入巡逻任务。</p>
+      <p><b>搜查频率：</b>监狱搜查间隔缩短至十五分钟。</p>
+      <p><b>防暴服：</b>可向典狱长申请，仅限监狱内部使用。</p>
+      <p><b>囚犯需求：</b>可酌情满足额外需求，非必须。</p>
+      <p><b>报告义务：</b>向典狱长报告囚犯可疑行为。</p>
+      <p><b>囚犯事务：</b>负责搜身、档案更改及文书工作，接受典狱长领导。</p>
+    </div>
+  </div>
+
+  <div class="dropdown-group">
+    <button class="main-btn main-btn-sec-yellow dropdown-btn" onclick="toggleDropdown('panelYellow')"><span>代码黄色</span></button>
+    <div class="dropdown-panel" id="panelYellow">
+      <p><b>巡逻权限：</b>监狱无事时可自由加入巡逻工作，监狱有事需立即返回。</p>
+      <p><b>搜查频率：</b>监狱搜查间隔缩短至十五分钟。</p>
+      <p><b>囚犯管理：</b>经典狱长允许，可将囚犯集中以便管理。</p>
+      <p><b>区域封锁：</b>经典狱长允许，可封锁监狱部分区域。</p>
+      <p><b>武装程序：</b>按照安全官在黄色代码下的武装程序执行。</p>
+      <p><b>防暴服：</b>可向典狱长申请，仅限监狱内部使用。</p>
+      <p><b>囚犯事务：</b>负责搜身、档案更改及文书工作，接受典狱长领导。</p>
+      <p><b>报告义务：</b>向典狱长报告囚犯可疑行为。</p>
+      <p><b>囚犯需求：</b>可酌情满足额外需求，非必须。</p>
+    </div>
+  </div>
+
+  <div class="dropdown-group">
+    <button class="main-btn main-btn-sec-red dropdown-btn" onclick="toggleDropdown('panelRed')"><span>代码红色</span></button>
+    <div class="dropdown-panel" id="panelRed">
+      <p><b>武装程序：</b>按照安全官在红色代码下的武装程序执行。</p>
+      <p><b>监狱搜查：</b>每隔十五分钟搜查一次监狱。</p>
+      <p><b>囚犯转移：</b>经典狱长允许，可将囚犯送往古拉格拘留。</p>
+      <p><b>防御部署：</b>可在监狱部署防御设备应对威胁。</p>
+      <p><b>巡逻权限：</b>监狱无事时可自由加入巡逻，有事需立即返回。</p>
+      <p><b>囚犯管理：</b>经典狱长允许，可将囚犯集中以便管理。</p>
+      <p><b>区域封锁：</b>经典狱长允许，可封锁监狱部分区域。</p>
+      <p><b>防暴服：</b>可向典狱长申请，仅限监狱内部使用。</p>
+      <p><b>囚犯事务：</b>负责搜身、档案更改及文书工作，接受典狱长领导。</p>
+      <p><b>报告义务：</b>向典狱长报告囚犯可疑行为。</p>
+      <p><b>囚犯需求：</b>可酌情满足额外需求，非必须。</p>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleDropdown(id) {
+  var panel = document.getElementById(id);
+  panel.classList.toggle('open');
+}
+</script>
+
+</body>
+</html>

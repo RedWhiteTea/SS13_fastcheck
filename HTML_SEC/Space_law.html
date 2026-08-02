@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>SS13 速查手册 - 太空法</title>
+<link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+<nav class="top-nav">
+  <div class="nav-logo"><span>太空法</span></div>
+  <div class="nav-actions">
+    <button class="nav-btn" onclick="history.back()" title="返回"><img src="../Icons/Misc/Return_btn.PNG" alt="返回" class="nav-btn-icon"></button>
+  </div>
+</nav>
+
+<div class="severity-section">
+  <input type="range" class="severity-slider" id="severitySlider" min="1" max="7" value="1" step="1" oninput="updateSeverity(this.value)">
+  <div class="severity-label" id="severityLabel">1XX</div>
+</div>
+
+<div class="main-buttons">
+  <div class="law-grid" id="lawGrid"></div>
+</div>
+
+<div class="penalty-section" id="penaltySection" style="display:none">
+  <div class="penalty-crime" id="penaltyCrime"></div>
+  <div class="penalty-text" id="penaltyText"></div>
+</div>
+
+<script>
+var LAW_DATA = {
+  X01:{1:'殴打',3:'袭击 (ABH)',4:'袭击 (GBH)',5:'谋杀',6:'永久性毁灭',7:'永久性毁灭'},
+  X02:{1:'破坏',2:'破坏空间站基础设施',3:'纵火',4:'破坏',5:'重大破坏',6:'恐怖主义',7:'敌对非典型生命形式'},
+  X03:{1:'扰乱秩序',3:'暴动',5:'煽动暴乱',6:'兵变',7:'空间站的敌人'},
+  X04:{1:'轻微盗窃',2:'盗窃',3:'抢劫',4:'贪污',5:'大盗窃',6:'掠盗'},
+  X05:{1:'窥探',2:'妨碍职责',3:'妨碍司法'},
+  X06:{1:'设备滥用',2:'公然挥舞武器',4:'滥用没收设备',6:'反现实'},
+  X07:{2:'非法入侵',4:'重大非法入侵'},
+  X08:{2:'医疗事故',4:'过失杀人',5:'自毁行为'},
+  X09:{1:'虐待动物',4:'释放生物武器',6:'释放致命生物武器',7:'生物恐怖主义'},
+  X10:{2:'制造工作场所危害',5:'恶意制造工作场所危害'},
+  X11:{1:'不服从',4:'执法不当',5:'滥用行政权力'},
+  X12:{1:'对硅基单位的不公正阻碍',2:'对硅基单位的伤害',4:'破坏硅基单位',5:'非法篡改硅基单位',6:'未经授权创建人工智能',7:'故障人工智能'},
+  X13:{1:'勒索',2:'非法限制人身自由',3:'非法限制权力',4:'智慧生命贩运',5:'食用智慧生命',6:'洗脑/催眠'},
+  X14:{2:'滥用通讯',4:'窃听安保频道',5:'窃听指挥频道',6:'窃听中央司令部频道'},
+  X15:{2:'酗酒与嗑药',3:'持有毒品',4:'麻醉品的分销与制造',6:'有组织的麻醉品的分销与制造'},
+  X16:{1:'故意拒绝履行职责',2:'违反禁令',3:'未支付罚款',5:'恶意拒绝服务'},
+  X17:{1:'欺诈',2:'身份盗用',3:'冒充权威',6:'冒充中央司令部'},
+  X18:{1:'基于等级',2:'基于等级',3:'基于等级',4:'基于等级',5:'基于等级',6:'基于等级',7:'基于等级'},
+  X19:{1:'基于等级',2:'基于等级',3:'基于等级',4:'基于等级',5:'基于等级',6:'基于等级',7:'基于等级'},
+  X20:{2:'言论/行动反对部门主管',3:'言论/行动反对舰长',6:'言论/行动反对中央指挥部',7:'言论/行动反对纳米传讯公司'}
+};
+
+var PENALTY = {
+  1:'三分钟监禁 / 300采矿点 / 300cr / 禁令',
+  2:'五分钟监禁 / 500采矿点 / 500cr / 禁令',
+  3:'八分钟监禁 / 800采矿点',
+  4:'十分钟监禁 / 1000采矿点',
+  5:'十五分钟监禁；如屡犯，永久监禁',
+  6:'永久监禁，或提供替代方案；如囚犯暴力，处决',
+  7:'立即处决；逮捕不再必要（"证据确凿无疑"），7XX指控'
+};
+
+var NAMES = {
+  X01:'人身伤害',X02:'破坏行为',X03:'扰乱秩序',X04:'盗窃与贪腐',X05:'违规与妨碍',
+  X06:'设备滥用',X07:'非法入侵',X08:'医疗事故',X09:'生物危害',X10:'工作场所危害',
+  X11:'执法权力滥用',X12:'侵害硅基单位',X13:'智慧生命犯罪',X14:'通讯滥用',
+  X15:'毒品相关',X16:'失职与违规',X17:'身份与欺诈',X18:'分发违禁品',X19:'持有违禁品',X20:'反动言论/行动'
+};
+
+var currentLevel = 1;
+
+function resolveLaw(data, level) {
+  for (var i = level; i >= 1; i--) {
+    if (data[i]) return data[i];
+  }
+  return '-';
+}
+
+function buildButtons() {
+  var html = '';
+  for (var x = 1; x <= 20; x++) {
+    var id = 'X' + (x < 10 ? '0' : '') + x;
+    html += '<button class="law-btn" id="btn' + id + '" onclick="showPenalty(\'' + id + '\')">' +
+            '<span class="law-top">' + id + '<br>' + NAMES[id] + '</span>' +
+            '<span class="law-crime"></span></button>';
+  }
+  document.getElementById('lawGrid').innerHTML = html;
+}
+
+function updateSeverity(val) {
+  currentLevel = parseInt(val);
+  document.getElementById('severityLabel').textContent = val + 'XX';
+  for (var x = 1; x <= 20; x++) {
+    var id = 'X' + (x < 10 ? '0' : '') + x;
+    var crimeName = resolveLaw(LAW_DATA[id], currentLevel);
+    var btn = document.getElementById('btn' + id);
+    if (btn) {
+      var span = btn.querySelector('.law-crime');
+      if (crimeName === '-') {
+        span.textContent = '-';
+        btn.style.color = 'var(--muted)';
+      } else {
+        var code = currentLevel + (x < 10 ? '0' : '') + x;
+        span.textContent = code + ' ' + crimeName;
+        btn.style.color = 'var(--ink)';
+      }
+    }
+  }
+}
+
+function showPenalty(id) {
+  var crimeName = resolveLaw(LAW_DATA[id], currentLevel);
+  if (crimeName === '-') {
+    document.getElementById('penaltyCrime').textContent = '无对应罪名';
+    document.getElementById('penaltyText').textContent = '';
+  } else {
+    var x = parseInt(id.substring(1));
+    var code = currentLevel + (x < 10 ? '0' : '') + x;
+    document.getElementById('penaltyCrime').textContent = id + ' ' + NAMES[id] + ' - ' + code + ' ' + crimeName;
+    document.getElementById('penaltyText').textContent = PENALTY[currentLevel];
+  }
+  document.getElementById('penaltySection').style.display = 'block';
+}
+
+buildButtons();
+updateSeverity(1);
+</script>
+
+</body>
+</html>

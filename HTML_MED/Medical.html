@@ -7,6 +7,19 @@
 <link rel="stylesheet" href="../css/styles.css">
 <style>
 @keyframes dumiSlideUp{from{bottom:-58px}to{bottom:-8px}}
+.achievement-card{
+  position:fixed;left:50%;bottom:20%;transform:translateX(-50%);
+  width:80%;max-width:480px;height:130px;
+  background:#424242;border:4px solid #fff;
+  border-radius:8px;
+  box-shadow:0 0 0 4px #424242,0 0 0 8px #fff,0 0 0 12px #424242;
+  display:flex;align-items:center;justify-content:center;
+  z-index:2000;transition:opacity 2s ease;
+}
+.achievement-card span{
+  color:#ffd700;font-size:16px;font-weight:700;
+  text-align:center;line-height:1.4;padding:10px;
+}
 </style>
 </head>
 <body style="position:relative;overflow-y:auto;height:100%;overscroll-behavior-y:none;-webkit-overflow-scrolling:touch">
@@ -29,6 +42,20 @@
 
 <script>
 var clickCount = 0;
+var dumiClicks = 0;
+
+function showAchievement() {
+  var oldC = document.getElementById('achievementCard');
+  if (oldC) oldC.remove();
+  var card = document.createElement('div');
+  card.id = 'achievementCard';
+  card.className = 'achievement-card';
+  card.innerHTML = '<span>达成成就<br>嘿，你真的很喜欢dumi</span>';
+  document.body.appendChild(card);
+  setTimeout(function() { card.style.opacity = '0'; }, 3000);
+  setTimeout(function() { if (card.parentNode) card.remove(); }, 5000);
+}
+
 function handleClick() {
   clickCount++;
   if (clickCount === 2) {
@@ -48,6 +75,11 @@ function handleClick() {
       document.body.appendChild(txt);
       setTimeout(function() { txt.style.opacity = '0'; }, 50);
       setTimeout(function() { if (txt.parentNode) txt.remove(); }, 2100);
+      dumiClicks++;
+      if (dumiClicks >= 50) {
+        showAchievement();
+        dumiClicks = 0;
+      }
     });
     document.body.appendChild(img);
   }

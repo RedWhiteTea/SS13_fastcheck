@@ -42,15 +42,15 @@
 
 <script>
 var clickCount = 0;
-var dumiClicks = 0;
+var dumiTotalClicks = 0;
 
-function showAchievement() {
+function showAchievement(text) {
   var oldC = document.getElementById('achievementCard');
   if (oldC) oldC.remove();
   var card = document.createElement('div');
   card.id = 'achievementCard';
   card.className = 'achievement-card';
-  card.innerHTML = '<span>达成成就<br>嘿，你真的很喜欢dumi</span>';
+  card.innerHTML = '<span>达成成就<br>' + text + '</span>';
   document.body.appendChild(card);
   setTimeout(function() { card.style.opacity = '0'; }, 3000);
   setTimeout(function() { if (card.parentNode) card.remove(); }, 5000);
@@ -75,10 +75,13 @@ function handleClick() {
       document.body.appendChild(txt);
       setTimeout(function() { txt.style.opacity = '0'; }, 50);
       setTimeout(function() { if (txt.parentNode) txt.remove(); }, 2100);
-      dumiClicks++;
-      if (dumiClicks >= 50) {
-        showAchievement();
-        dumiClicks = 0;
+      dumiTotalClicks++;
+      if (dumiTotalClicks === 50) {
+        showAchievement('嘿，你真的很喜欢dumi');
+      }
+      if (dumiTotalClicks === 100) {
+        showAchievement('痴迷dumi');
+        dumiTotalClicks = 0;
       }
     });
     document.body.appendChild(img);

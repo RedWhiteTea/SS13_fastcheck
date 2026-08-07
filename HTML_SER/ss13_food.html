@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>SS13 速查手册 - 厨房</title>
+<link rel="stylesheet" href="../css/styles.css">
+<style>
+.tag{border-radius:0!important;border:3px solid var(--ink)!important;box-shadow:3px 3px 0 rgba(0,0,0,.15)!important;font-weight:700!important}
+.tag.active{border-color:var(--accent)!important}
+.mode-btn{border-radius:0!important;border:3px solid var(--ink)!important;box-shadow:3px 3px 0 rgba(0,0,0,.15)!important;font-weight:700!important}
+.mode-btn.active{background:var(--ink)!important;color:#fff!important}
+.cat-btn{border-radius:0!important;border:3px solid var(--ink)!important;box-shadow:3px 3px 0 rgba(0,0,0,.15)!important;font-weight:700!important}
+.cat-btn.active{background:var(--ink)!important;color:#fff!important}
+.search-bar,.guide-search-bar{border-radius:0!important;border:3px solid var(--ink)!important;box-shadow:3px 3px 0 rgba(0,0,0,.15)!important}
+.recipe-card{border-radius:0!important;border:3px solid var(--ink)!important;box-shadow:4px 4px 0 rgba(0,0,0,.15)!important}
+.recipe-card:hover{transform:translate(2px,2px)!important;box-shadow:2px 2px 0 rgba(0,0,0,.2)!important}
+.random-btn{border-radius:0!important;border:3px solid var(--ink)!important;box-shadow:4px 4px 0 rgba(0,0,0,.15)!important}
+.bottom-nav{border-top:4px solid var(--ink)!important;border-radius:0!important}
+.ingredient-chip{border-radius:0!important;border:2px solid var(--ink)!important}
+.recipe-tool{border-radius:0!important;border:2px solid var(--ink)!important}
+.sort-btn{border-radius:0!important;border:3px solid var(--ink)!important;box-shadow:3px 3px 0 rgba(0,0,0,.15)!important;font-weight:700!important}
+.sort-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.group-header{cursor:pointer;user-select:none;display:flex;align-items:center;gap:6px}
+.group-header .group-indicator{font-size:12px;margin-left:auto;transition:transform .2s ease}
+.recipe-group.collapsed .recipe-card{display:none!important}
+.recipe-group.collapsed .group-header .group-indicator{transform:rotate(-90deg)}
+.showall-btn{font-size:12px;color:var(--accent);cursor:pointer;background:none;border:none;padding:4px 8px;border-radius:0;transition:all .2s ease}
+.showall-btn:hover{background:var(--tag-green-bg)}
+.section-header{cursor:pointer;user-select:none}
+.section-header .section-toggle{font-size:12px;margin-left:4px;transition:transform .2s ease;display:inline-block}
+.ingredient-section.collapsed .tag-container{display:none!important}
+.ingredient-section.collapsed .section-header .section-toggle{transform:rotate(-90deg)}
+.guide-search-section{background:var(--bg)!important}
+.tool-card{border-radius:0!important;border:3px solid var(--ink)!important;box-shadow:3px 3px 0 rgba(0,0,0,.15)!important}
+.faq-item{border-radius:0!important;border:3px solid var(--ink)!important;box-shadow:3px 3px 0 rgba(0,0,0,.15)!important;margin-bottom:10px!important}
+.faq-question{padding:10px 14px!important;font-weight:700!important}
+.faq-answer{padding:0 14px 10px!important}
+.help-section h2{font-size:16px!important;padding-left:4px;border-left:4px solid var(--ink)}
+.guide-result-item{border-radius:0!important;border:3px solid var(--ink)!important;box-shadow:3px 3px 0 rgba(0,0,0,.15)!important}
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <div class="nav-logo"><span>厨师手册</span></div>
+  <div class="nav-actions">
+    <button class="nav-btn" onclick="location.href='Service.html'" title="返回"><img src="../Icons/Misc/Return_btn.PNG" alt="返回" class="nav-btn-icon"></button>
+  </div>
+</nav>
+
+<div class="page-view active" id="page-home">
+  <div class="search-section">
+    <div class="search-wrapper">
+      <span class="search-icon">🔍</span>
+      <input type="text" class="search-bar" id="searchInput" placeholder="搜索食物名称或食材...">
+    </div>
+  </div>
+  <div class="ingredient-section"><div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')"><span class="section-title"><span class="emoji">🥬</span> 蔬菜们<span class="section-toggle">▼</span></span><span class="section-count" id="vegCount">0/0</span></div><div class="tag-container" id="vegTags"></div></div>
+  <div class="ingredient-section"><div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')"><span class="section-title"><span class="emoji">🍎</span> 水果们<span class="section-toggle">▼</span></span><span class="section-count" id="fruitCount">0/0</span></div><div class="tag-container" id="fruitTags"></div></div>
+  <div class="ingredient-section"><div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')"><span class="section-title"><span class="emoji">🥩</span> 肉肉们<span class="section-toggle">▼</span></span><span class="section-count" id="meatCount">0/0</span></div><div class="tag-container" id="meatTags"></div></div>
+  <div class="ingredient-section"><div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')"><span class="section-title"><span class="emoji">🧈</span> 基础原料<span class="section-toggle">▼</span></span><span class="section-count" id="basicCount">0/0</span></div><div class="tag-container" id="basicTags"></div></div>
+  <div class="ingredient-section"><div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')"><span class="section-title"><span class="emoji">🔧</span> 厨具们<span class="section-toggle">▼</span></span><span class="section-count" id="toolCount">0/0</span></div><div class="tag-container" id="toolTags"></div></div>
+
+  <div style="text-align:center;padding:8px 20px 4px;display:flex;gap:12px;justify-content:center">
+    <button class="reset-btn" onclick="clearAll()" style="font-size:14px;font-weight:700;padding:8px 20px;background:var(--accent2);color:#fff;border:3px solid var(--ink);border-radius:0;box-shadow:3px 3px 0 rgba(0,0,0,.15);cursor:pointer;font-family:inherit;">� 重置所有选择</button>
+  </div>
+  <div class="mode-section" style="padding-top:12px">
+    <button class="mode-btn active" data-mode="fuzzy" onclick="setMode(this)">🌀 模糊匹配</button>
+    <button class="mode-btn" data-mode="strict" onclick="setMode(this)">🎯 严格匹配</button>
+    <button class="mode-btn" data-mode="survival" onclick="setMode(this)">🔋 极简模式</button>
+  </div>
+  <div class="sort-section" style="padding:0 20px 8px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+    <button class="sort-btn" data-sort="sat-desc" onclick="setSort(this)">🔥 饱和度高→低</button>
+    <button class="sort-btn" data-sort="sat-asc" onclick="setSort(this)">❄️ 饱和度低→高</button>
+    <button class="sort-btn active" data-sort="default" onclick="setSort(this)">📋 默认排序</button>
+  </div>
+  <div class="category-section" style="padding-top:4px">
+    <button class="cat-btn active" data-cat="all" onclick="setCat(this)">📋 全部</button><button class="cat-btn" data-cat="soup" onclick="setCat(this)">🍲 汤类</button><button class="cat-btn" data-cat="burger" onclick="setCat(this)">🍔 汉堡</button><button class="cat-btn" data-cat="bread" onclick="setCat(this)">🍞 面包</button><button class="cat-btn" data-cat="meat" onclick="setCat(this)">🥩 肉类</button><button class="cat-btn" data-cat="kebab" onclick="setCat(this)">🍢 烤串</button><button class="cat-btn" data-cat="pasta" onclick="setCat(this)">🍝 意面</button><button class="cat-btn" data-cat="salad" onclick="setCat(this)">🥗 沙拉</button><button class="cat-btn" data-cat="seafood" onclick="setCat(this)">🐟 海鲜</button><button class="cat-btn" data-cat="cake" onclick="setCat(this)">🎂 蛋糕</button><button class="cat-btn" data-cat="pie" onclick="setCat(this)">🥧 馅饼</button><button class="cat-btn" data-cat="pastry" onclick="setCat(this)">🧁 糕点</button><button class="cat-btn" data-cat="pizza" onclick="setCat(this)">🍕 披萨</button><button class="cat-btn" data-cat="sandwich" onclick="setCat(this)">🥪 三明治</button><button class="cat-btn" data-cat="mexican" onclick="setCat(this)">🌮 墨西哥菜</button><button class="cat-btn" data-cat="frozen" onclick="setCat(this)">🍨 冷冻</button><button class="cat-btn" data-cat="candy" onclick="setCat(this)">🍬 糖果</button><button class="cat-btn" data-cat="side" onclick="setCat(this)">🍟 配菜</button><button class="cat-btn" data-cat="ingredient" onclick="setCat(this)">🧪 基础调料</button><button class="cat-btn" data-cat="lizard" onclick="setCat(this)">🦎 蜥蜴族</button><button class="cat-btn" data-cat="martian" onclick="setCat(this)">🌋 火星菜</button><button class="cat-btn" data-cat="moth" onclick="setCat(this)">🦋 蛾族菜</button>
+  </div>
+
+  <div class="results-section" id="resultsSection">
+    <div class="results-header"><span class="results-title">🎯 匹配配方</span><span class="results-count" id="resultsCount">0 个结果</span></div>
+    <div id="resultsList"><div class="empty-state"><div class="empty-icon">🍳</div><p>选择食材或工具开始查找配方吧~</p></div></div>
+  </div>
+  <div class="random-section"><button class="random-btn" onclick="randomRecipe()">🎲 今天吃什么？</button><div class="random-result" id="randomResult"></div></div>
+</div>
+
+<div class="page-view" id="page-guide">
+  <div class="guide-search-section"><div class="guide-search-wrapper"><span class="guide-search-icon">🔍</span><input type="text" class="guide-search-bar" id="guideSearchInput" placeholder="搜索具体食材或食物名称..."></div><div class="guide-search-count" id="guideSearchCount" style="display:none"></div></div>
+  <div class="guide-result-group" id="guideSearchResults" style="display:none"></div>
+  <div class="help-container" id="guideContent">
+    <div class="help-section"><h2>🔧 厨具指南</h2><div class="tool-grid"><div class="tool-card"><div class="tool-icon">📡</div><div class="tool-name">微波炉</div><div class="tool-desc">直接放入原料加热烹饪</div></div><div class="tool-card"><div class="tool-icon">🔥</div><div class="tool-name">烤箱</div><div class="tool-desc">烘焙面包、披萨饼底、蛋糕和馅饼</div></div><div class="tool-card"><div class="tool-icon">🍳</div><div class="tool-name">铁板</div><div class="tool-desc">煎烤肉类、培根、煎饼</div></div><div class="tool-card"><div class="tool-icon">⚙️</div><div class="tool-name">食品加工机</div><div class="tool-desc">原料加工成半成品</div></div><div class="tool-card"><div class="tool-icon">🥤</div><div class="tool-name">搅拌机</div><div class="tool-desc">研磨、混合、榨汁</div></div><div class="tool-card"><div class="tool-icon">🔨</div><div class="tool-name">合成菜单</div><div class="tool-desc">组合原料为最终菜品</div></div></div></div>
+    <div class="help-section"><h2>📝 使用说明</h2><div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)"><span>如何使用这个工具？</span><span class="faq-arrow">▼</span></div><div class="faq-answer">选择食材和厨具，下方自动显示匹配的配方。</div></div><div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)"><span>三种匹配模式有什么区别？</span><span class="faq-arrow">▼</span></div><div class="faq-answer"><b>模糊匹配</b>：包含任一所选食材<br><b>严格匹配</b>：包含所有已选食材<br><b>极简模式</b>：所需食材最少的配方</div></div></div>
+  </div>
+</div>
+
+<nav class="bottom-nav">
+  <button class="nav-item active" data-page="home" onclick="switchPage('home',this)"><span class="nav-icon">🏠</span><span class="nav-label">做菜</span></button>
+  <button class="nav-item" data-page="guide" onclick="switchPage('guide',this)"><span class="nav-icon">📖</span><span class="nav-label">指南</span></button>
+</nav>
+
+<script src="temp_cook.js"></script>
+<script>
+(function(){
+'use strict';
+var selectedTags={},matchMode='fuzzy',activeCat='all',searchQuery='',sortMode='default';
+window.showall=function(){searchQuery='';activeCat='all';renderResults();};
+function initTags(){var groups=[{key:'veg',cid:'vegTags',cnt:'vegCount',d:TAGS.veg,cs:'tag-green'},{key:'fruit',cid:'fruitTags',cnt:'fruitCount',d:TAGS.fruit,cs:'tag-pink'},{key:'meat',cid:'meatTags',cnt:'meatCount',d:TAGS.meat,cs:'tag-yellow'},{key:'basic',cid:'basicTags',cnt:'basicCount',d:TAGS.basic,cs:'tag-gray'},{key:'tool',cid:'toolTags',cnt:'toolCount',d:TAGS.tool,cs:'tag-blue'}];groups.forEach(function(g){var c=document.getElementById(g.cid);g.d.forEach(function(t){var el=document.createElement('span');el.className='tag '+g.cs;el.dataset.id=t.id;el.innerHTML='<span class="tag-emoji">'+t.e+'</span>'+t.n;el.addEventListener('click',function(){toggleTag(t.id,el,g.cs,g.cnt);});c.appendChild(el);});document.getElementById(g.cnt).textContent='0/'+g.d.length;});}
+function toggleTag(id,el,css,countId){if(selectedTags[id]){delete selectedTags[id];el.classList.remove('active');}else{selectedTags[id]=true;el.classList.add('active');}updateCount(countId);renderResults();}
+function updateCount(id){var el=document.getElementById(id);var p=el.parentElement;var t=p.parentElement.querySelectorAll('.tag').length;var a=p.parentElement.querySelectorAll('.tag.active').length;el.textContent=a+'/'+t;}
+window.setMode=function(btn){document.querySelectorAll('.mode-btn').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');matchMode=btn.dataset.mode;renderResults();};
+window.setCat=function(btn){document.querySelectorAll('.cat-btn').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');activeCat=btn.dataset.cat;renderResults();};
+window.setSort=function(btn){document.querySelectorAll('.sort-btn').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');sortMode=btn.dataset.sort;renderResults();};
+window.showAllRecipes=function(){selectedTags={};document.querySelectorAll('.tag.active').forEach(function(t){t.classList.remove('active');});['vegCount','fruitCount','meatCount','basicCount','toolCount'].forEach(function(id){updateCount(id);});document.getElementById('searchInput').value='';searchQuery='';renderResults();};
+document.getElementById('searchInput').addEventListener('input',function(e){searchQuery=e.target.value.trim().toLowerCase();renderResults();});
+window.clearAll=function(){selectedTags={};document.querySelectorAll('.tag.active').forEach(function(t){t.classList.remove('active');});['vegCount','fruitCount','meatCount','basicCount','toolCount'].forEach(function(id){updateCount(id);});document.getElementById('searchInput').value='';searchQuery='';renderResults();};
+function filterRecipes(){var sIds=Object.keys(selectedTags);var sTools=sIds.filter(function(i){return TAGS.tool.some(function(t){return t.id===i;});});var sIngs=sIds.filter(function(i){return !TAGS.tool.some(function(t){return t.id===i;});});var rs=RECIPES.filter(function(r){if(activeCat!=='all'&&r.cat!==activeCat)return false;if(searchQuery){var q=searchQuery;var nm=r.n.toLowerCase().indexOf(q)!==-1||r.en.toLowerCase().indexOf(q)!==-1;var im=r.ings.some(function(ing){return ing[1].toLowerCase().indexOf(q)!==-1;});if(!nm&&!im)return false;}if(sIds.length===0&&!showall)return false;if(sTools.length>0&&sTools.indexOf(r.tool)===-1)return false;if(sIngs.length===0)return true;var rIds=r.ings.map(function(ing){return ing[0];});if(matchMode==='fuzzy')return sIngs.some(function(s){return rIds.indexOf(s)!==-1;});if(matchMode==='strict')return sIngs.every(function(s){return rIds.indexOf(s)!==-1;});if(matchMode==='survival')return sIngs.some(function(s){return rIds.indexOf(s)!==-1;});return true;});if(matchMode==='survival')rs.sort(function(a,b){return a.ings.length-b.ings.length;});if(sortMode==='sat-desc')rs.sort(function(a,b){return getSat(b)-getSat(a);});else if(sortMode==='sat-asc')rs.sort(function(a,b){return getSat(a)-getSat(b);});return rs;}
+function renderResults(){var c=document.getElementById('resultsList');var cnt=document.getElementById('resultsCount');var rs=filterRecipes();cnt.textContent=rs.length+' 个结果';if(rs.length===0){c.innerHTML='<div class="empty-state"><div class="empty-icon">😔</div><p>没有找到匹配的配方</p></div>';return;}var g={};rs.forEach(function(r){if(!g[r.cat])g[r.cat]=[];g[r.cat].push(r);});var h='';var order=['soup','burger','bread','meat','kebab','pasta','salad','seafood','cake','pie','pastry','pizza','sandwich','mexican','frozen','candy','side','ingredient','lizard','martian','moth'];var si=Object.keys(selectedTags).filter(function(i){return !TAGS.tool.some(function(t){return t.id===i;});});order.forEach(function(cat){if(!g[cat])return;var lb=CAT_LABELS[cat];h+='<div class="recipe-group"><div class="group-header"><span class="group-icon">'+lb.icon+'</span>'+lb.name+" <span class='group-indicator'>▼</span></div>";g[cat].forEach(function(r){var sat=getSat(r);var sl=satLevel(sat);var sc=Math.min(r.ings.length,6);var ch='';for(var i=0;i<sc;i++){var ing=r.ings[i];var im=si.indexOf(ing[0])!==-1;var it=ing[1];if(ing[3]>0)it=(ing[3]>1?ing[3]+'x ':'')+it;else if(ing[4]!==undefined)it=ing[4]+'u '+it;ch+='<span class="ingredient-chip'+(im?' matched':'')+'"><span class="chip-emoji">'+ing[2]+'</span>'+it+'</span>';}if(r.ings.length>6)ch+='<span class="ingredient-chip">+'+(r.ings.length-6)+'...</span>';var tl=TOOL_LABELS[r.tool]||r.tool;var wh=r.warn?' <span style="color:var(--accent2);font-weight:600">'+r.warn+'</span>':'';var fx=r.fx?'<span class="recipe-effect">'+r.fx+'</span>':'';var di='';r.ings.forEach(function(ing){var im=si.indexOf(ing[0])!==-1;var it=ing[1];if(ing[3]>0)it=(ing[3]>1?ing[3]+'x ':'')+it;else if(ing[4]!==undefined)it=ing[4]+'u '+it;di+='<span class="ing-item'+(im?' matched':'')+'">'+ing[2]+' '+it+'</span>';});h+='<div class="recipe-card" onclick="toggleCard(this)"><div class="recipe-card-header"><div class="recipe-name"><span class="name-cn">'+r.n+'</span><span class="name-en">'+r.en+'</span></div><span class="expand-indicator">▼</span></div><div class="recipe-ingredients-inline">'+ch+'</div><div class="recipe-meta"><span class="recipe-tool">'+tl+'</span><span class="recipe-sat '+sl+'"><span class="sat-icon">'+['','🍖','🍗','🥩'][sl==='high'?3:sl==='med'?2:1]+'</span>'+sat+'</span>'+fx+wh+'</div><div class="recipe-detail"><div class="detail-row"><span class="detail-label">完整食材</span><span class="detail-value"><div class="ing-list">'+di+'</div></span></div><div class="detail-row"><span class="detail-label">制作工具</span><span class="detail-value">'+tl+'</span></div>';if(r.fx)h+='<div class="detail-row"><span class="detail-label">效果</span><span class="detail-value">'+r.fx+wh+'</span></div>';h+='</div></div>';});h+='</div>';});c.innerHTML=h;}
+window.toggleGroup=function(el){el.parentElement.classList.toggle('collapsed');};window.toggleCard=function(el){el.classList.toggle('expanded');};
+window.toggleFaq=function(el){el.parentElement.classList.toggle('open');};
+var gsi=document.getElementById('guideSearchInput'),gsr=document.getElementById('guideSearchResults'),gsc=document.getElementById('guideSearchCount'),gc=document.getElementById('guideContent');
+gsi.addEventListener('input',function(){var q=this.value.trim().toLowerCase();if(!q){gsr.style.display='none';gsc.style.display='none';gc.style.display='block';return;}gc.style.display='none';gsr.style.display='block';gsc.style.display='block';var rs=RECIPES.filter(function(r){if(r.n.toLowerCase().indexOf(q)!==-1)return true;if(r.en.toLowerCase().indexOf(q)!==-1)return true;return r.ings.some(function(ing){return ing[1].toLowerCase().indexOf(q)!==-1||ing[0].toLowerCase().indexOf(q)!==-1;});});var mt=[];var atg=[TAGS.veg,TAGS.fruit,TAGS.meat,TAGS.basic,TAGS.tool];var gn=['蔬菜','水果','肉类','基础原料','厨具'];atg.forEach(function(g,gi){g.forEach(function(t){if(t.n.toLowerCase().indexOf(q)!==-1||t.id.toLowerCase().indexOf(q)!==-1)mt.push({tag:t,group:gn[gi]});});});gsc.innerHTML='找到 <b>'+(rs.length+mt.length)+'</b> 个结果';var h='';if(mt.length>0){h+='<div class="group-header"><span class="group-icon">🏷️</span>匹配食材</div>';mt.forEach(function(m){h+='<div class="guide-result-item"><div class="guide-result-header"><span class="guide-result-name">'+m.tag.e+' '+m.tag.n+'</span><span class="guide-result-cat">'+m.group+'</span></div><div class="guide-result-fx">ID: '+m.tag.id+'</div></div>';});}if(rs.length>0){h+='<div class="group-header" style="margin-top:12px"><span class="group-icon">🍽️</span>匹配配方</div>';rs.forEach(function(r){var cl=CAT_LABELS[r.cat]||{name:r.cat,icon:'📋'};var tl=TOOL_LABELS[r.tool]||r.tool;var ih=r.ings.slice(0,5).map(function(ing){return '<span class="guide-result-ing">'+ing[2]+' '+ing[1]+'</span>';}).join('');if(r.ings.length>5)ih+='<span class="guide-result-ing">+'+(r.ings.length-5)+'</span>';h+='<div class="guide-result-item"><div class="guide-result-header"><span class="guide-result-name">'+r.n+'<span class="grn-en">'+r.en+'</span></span><span class="guide-result-cat">'+cl.icon+' '+cl.name+'</span></div><div class="guide-result-ings">'+ih+'</div><div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap"><span class="guide-result-tool">'+tl+'</span>';if(r.fx)h+='<span class="guide-result-fx">'+r.fx+'</span>';h+='</div></div>';});}if(rs.length===0&&mt.length===0)h='<div class="empty-state"><div class="empty-icon">🔍</div><p>没有找到匹配的食材或配方</p></div>';gsr.innerHTML=h;});
+window.switchPage=function(page,btn){document.querySelectorAll('.page-view').forEach(function(p){p.classList.remove('active');});document.getElementById('page-'+page).classList.add('active');document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});btn.classList.add('active');window.scrollTo(0,0);};
+window.randomRecipe=function(){var c=document.getElementById('randomResult');var sh=RECIPES.filter(function(r){return r.cat!=='ingredient';}).sort(function(){return 0.5-Math.random();});var p=sh.slice(0,3);var h='';p.forEach(function(r){var em=r.ings.slice(0,4).map(function(ing){return ing[2];}).join(' ');h+='<div class="random-card">'+em+' '+r.n+'</div>';});c.innerHTML=h;};
+window.showall=true;
+renderResults();
+initTags();
+})();
+</script>
+</body>
+</html>

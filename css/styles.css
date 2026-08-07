@@ -533,6 +533,29 @@ a:hover{text-decoration:underline}
   background:#1565c0;border-color:#1a237e;color:#fff;
 }
 
+/* ===== Service Custom Buttons ===== */
+.main-btn-srv-white{
+  background:#ffffff;border-color:#757575;
+}
+.main-btn-srv-white:hover{border-color:#424242}
+.main-btn-srv-white:active{
+  background:#e0e0e0;border-color:#212121;color:var(--ink);
+}
+.main-btn-srv-red{
+  background:#ef9a9a;border-color:#c62828;
+}
+.main-btn-srv-red:hover{border-color:#b71c1c}
+.main-btn-srv-red:active{
+  background:#c62828;border-color:#b71c1c;color:#fff;
+}
+.main-btn-srv-green{
+  background:#a5d6a7;border-color:#2e7d32;
+}
+.main-btn-srv-green:hover{border-color:#1b5e20}
+.main-btn-srv-green:active{
+  background:#2E7D32;border-color:#1b5e20;color:#fff;
+}
+
 /* ===== Dropdown Panel ===== */
 .dropdown-group{
   width:70%;margin:0 auto;
